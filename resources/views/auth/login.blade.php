@@ -85,7 +85,7 @@
     .toggle-password-icon {
       position: absolute;
       right: 12px;
-      top: 50%;
+      top: 40%;
       transform: translateY(-50%);
       font-size: 18px;
       cursor: pointer;

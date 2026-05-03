@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PhotoBoothController;
 
 Route::get('/', function () {
     return view('contact.index');
@@ -30,3 +31,6 @@ Route::post('/signup', [AuthController::class, 'signup']);
 Route::get('/auth/google', [AuthController::class, 'redirectToGoogle']);
 
 Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
+
+Route::get('/layout', [PhotoBoothController::class, 'showLayout'])->name('photobooth.layout');
+Route::get('/camera', [PhotoBoothController::class, 'showCamera'])->name('photobooth.camera');
