@@ -24,3 +24,7 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+/public/assets/bootstrap-icons-1.13.1
+/public/assets/bootstrap-5.3.8-dist
+/vendor
+/node_modules
