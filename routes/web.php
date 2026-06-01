@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PhotoBoothController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('contact.index');
@@ -34,3 +35,10 @@ Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallbac
 
 Route::get('/layout', [PhotoBoothController::class, 'showLayout'])->name('photobooth.layout');
 Route::get('/camera', [PhotoBoothController::class, 'showCamera'])->name('photobooth.camera');
+Route::get('/sticker', [PhotoBoothController::class, 'showSticker'])->name('photobooth.sticker');
+Route::get('/photo', [PhotoBoothController::class, 'showPhoto'])->name('photobooth.photo');
+
+Route::view('/profile/settings', 'contact.profile')
+    ->name('profile.settings');
+Route::get('/profile/settings', [ProfileController::class, 'edit'])->name('profile.settings');
+Route::post('/profile/settings', [ProfileController::class, 'update'])->name('profile.update');

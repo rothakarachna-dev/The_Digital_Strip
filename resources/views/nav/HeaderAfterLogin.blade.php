@@ -6,7 +6,8 @@
     align-items: center;
     font-family: Arial, sans-serif;
 }
-/*top bar */
+
+/* top bar */
 .utility-links {
     width: 1000px;
     max-width: 90%;
@@ -46,7 +47,7 @@
     opacity: 0.7;
 }
 
-/* navbar*/
+/* navbar */
 .nav-toggle {
     display: none;
     background: none;
@@ -101,7 +102,7 @@
     border-bottom: 3px solid white;
 }
 
-/* logout */
+/* logout modal */
 .logout-modal {
     display: none;
     position: fixed;
@@ -171,7 +172,6 @@
         display: flex;
     }
 }
-
 </style>
 
 
@@ -180,13 +180,15 @@
     <div class="utility-links">
 
         @auth
+
             @php
                 $avatar = Auth::user()->profile_image
                     ? asset(Auth::user()->profile_image)
                     : asset('uploads/profiles/default_avatar.png');
             @endphp
 
-            <a href="{{ url('/profile/settings') }}"
+            {{-- PROFILE LINK --}}
+            <a href="{{ route('profile.settings') }}"
                class="profile-link-hover"
                style="display:flex;align-items:center;text-decoration:none;color:inherit;margin-right:auto;">
 
@@ -195,65 +197,101 @@
                      class="nav-avatar">
 
                 <span class="welcome-text">
-                    Welcome, {{ Auth::user()->username }}
+                    Welcome, {{ Auth::user()->name ?? 'User' }}
                 </span>
+
             </a>
 
-            <a href="#" id="logout-link">Log Out</a>
+            {{-- LOGOUT --}}
+            <a href="#" id="logout-link">
+                Log Out
+            </a>
 
         @else
-            <a href="{{ route('login') }}">Log In</a>
+
+            <a href="{{ route('login') }}">
+                Log In
+            </a>
+
         @endauth
 
     </div>
 
-    <button class="nav-toggle" id="nav-toggle">☰</button>
+    {{-- MOBILE TOGGLE --}}
+    <button class="nav-toggle" id="nav-toggle">
+        ☰
+    </button>
 
+    {{-- NAVIGATION --}}
     <div class="nav-bar" id="nav-bar">
+
         <ul>
+
             <li>
                 <a href="{{ url('/') }}"
                    class="{{ request()->is('/') ? 'active' : '' }}">
                     Home
                 </a>
             </li>
+
             <li>
                 <a href="{{ url('/about') }}"
                    class="{{ request()->is('about') ? 'active' : '' }}">
                     About
                 </a>
             </li>
+
             <li>
                 <a href="{{ url('/contact') }}"
                    class="{{ request()->is('contact') ? 'active' : '' }}">
                     Contact
                 </a>
             </li>
+
             <li>
                 <a href="{{ url('/photo') }}"
                    class="{{ request()->is('photo') ? 'active' : '' }}">
                     Photo
                 </a>
             </li>
+
         </ul>
+
     </div>
+
 </div>
 
 {{-- LOGOUT MODAL --}}
 <div id="logout-modal" class="logout-modal">
+
     <div class="logout-modal-content">
+
         <h3>Log out?</h3>
-        <p>Are you sure you want to log out?</p>
+
+        <p>
+            Are you sure you want to log out?
+        </p>
 
         <div class="logout-modal-buttons">
-            <button id="logout-cancel">Cancel</button>
+
+            <button id="logout-cancel">
+                Cancel
+            </button>
 
             <form method="POST" action="{{ route('logout') }}">
+
                 @csrf
-                <button id="logout-confirm" type="submit">Log Out</button>
+
+                <button id="logout-confirm" type="submit">
+                    Log Out
+                </button>
+
             </form>
+
         </div>
+
     </div>
+
 </div>
 
 <link rel="stylesheet" href="{{ asset('nav/nav.css') }}">
@@ -261,30 +299,53 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
-  const logoutLink    = document.getElementById('logout-link');
-  const logoutModal   = document.getElementById('logout-modal');
-  const cancel        = document.getElementById('logout-cancel');
-  const navToggle     = document.getElementById('nav-toggle');
-  const navBar        = document.getElementById('nav-bar');
+    const logoutLink  = document.getElementById('logout-link');
+    const logoutModal = document.getElementById('logout-modal');
+    const cancel      = document.getElementById('logout-cancel');
+    const navToggle   = document.getElementById('nav-toggle');
+    const navBar      = document.getElementById('nav-bar');
 
-  if (logoutLink) {
-    logoutLink.addEventListener('click', function(e){
-      e.preventDefault();
-      logoutModal.style.display = 'flex';
+    // logout popup
+    if (logoutLink) {
+
+        logoutLink.addEventListener('click', function(e) {
+
+            e.preventDefault();
+            logoutModal.style.display = 'flex';
+
+        });
+    }
+
+    // cancel logout
+    if (cancel) {
+
+        cancel.onclick = () => {
+
+            logoutModal.style.display = 'none';
+
+        };
+    }
+
+    // mobile nav
+    if (navToggle) {
+
+        navToggle.onclick = () => {
+
+            navBar.classList.toggle('open');
+
+        };
+    }
+
+    // close modal when clicking outside
+    logoutModal.addEventListener('click', function(e) {
+
+        if (e.target === logoutModal) {
+
+            logoutModal.style.display = 'none';
+
+        }
+
     });
-  }
-
-  if (cancel) {
-    cancel.onclick = () => logoutModal.style.display = 'none';
-  }
-
-  if (navToggle) {
-    navToggle.onclick = () => navBar.classList.toggle('open');
-  }
-
-  logoutModal.addEventListener('click', function(e){
-    if (e.target === logoutModal) logoutModal.style.display = 'none';
-  });
 
 });
 </script>
