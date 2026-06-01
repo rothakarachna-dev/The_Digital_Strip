@@ -60,7 +60,7 @@ class AuthController extends Controller
      * - Authenticates user session
      * - Redirects to homepage on success
      */
-    public function login(Request $request)
+        public function login(Request $request)
     {
         // Validate login input
         $credentials = $request->validate([
@@ -70,9 +70,16 @@ class AuthController extends Controller
 
         // Attempt authentication
         if (Auth::attempt($credentials)) {
+
+        $request->session()->regenerate();
+
+        if (Auth::attempt($credentials)) {
+
             $request->session()->regenerate();
-            return redirect('/');
+
+            return redirect()->route('admin.index');
         }
+    }
 
         // Return error if authentication fails
         return back()->withErrors([

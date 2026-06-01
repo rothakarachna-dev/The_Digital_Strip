@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PhotoBoothController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
+
 
 Route::get('/', function () {
     return view('contact.index');
@@ -42,3 +44,17 @@ Route::view('/profile/settings', 'contact.profile')
     ->name('profile.settings');
 Route::get('/profile/settings', [ProfileController::class, 'edit'])->name('profile.settings');
 Route::post('/profile/settings', [ProfileController::class, 'update'])->name('profile.update');
+
+//admin routes
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/admin', [AdminController::class, 'index'])
+        ->name('admin.index');
+
+    Route::post('/admin/users', [AdminController::class, 'store'])
+        ->name('admin.users.store');
+
+    Route::delete('/admin/users/{user}', [AdminController::class, 'destroy'])
+        ->name('admin.users.destroy');
+});

@@ -28,3 +28,4 @@ Thumbs.db
 /public/assets/bootstrap-5.3.8-dist
 /vendor
 /node_modules
+/public/uploads/
