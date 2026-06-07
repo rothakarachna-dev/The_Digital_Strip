@@ -4,26 +4,37 @@
     <meta charset="UTF-8">
     <title>@yield('title', 'Admin Panel')</title>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
         :root {
             --primary-pink: #e91e63;
             --soft-pink: #fce4ec;
             --bg-pink: #fdf0f5;
-            --white: #ffffff;
-            --text-gray: #777;
             --text-dark: #333;
         }
 
         body {
-            background-color: var(--bg-pink);
             margin: 0;
             font-family: Arial, sans-serif;
+            background-color: var(--bg-pink);
+
+            /* IMPORTANT: makes room for sidebar */
+            display: flex;
         }
 
+        /* ===== SIDEBAR AREA ===== */
+        .sidebar {
+            width: 75px;
+            flex-shrink: 0;
+        }
+
+        /* ===== MAIN CONTENT ===== */
         .main-content {
-            flex-grow: 1;
+            flex: 1;
             padding: 40px;
             min-height: 100vh;
+
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -34,6 +45,7 @@
             max-width: 1100px;
         }
 
+        /* HEADER */
         .page-header {
             margin-bottom: 30px;
             display: flex;
@@ -57,9 +69,10 @@
             object-fit: cover;
         }
 
+        /* CARDS */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -70,8 +83,10 @@
             border-radius: 16px;
             padding: 25px;
             margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
+        /* FORMS */
         .form-row {
             display: flex;
             gap: 15px;
@@ -91,26 +106,77 @@
             border: none;
             padding: 12px 20px;
             border-radius: 10px;
+            cursor: pointer;
         }
 
+        /* ===== TABLE ===== */
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* header + cells MUST match alignment */
+        th,
+        td {
+            text-align: left;
+            padding: 18px 20px;
+            vertical-align: middle;
+        }
+
+        /* header style */
+        th {
+            background: var(--soft-pink);
+        }
+
+        /* rows */
+        tbody tr {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        tbody tr:hover {
+            background: #fafafa;
+        }
+
+        /* ===== ACTION COLUMN FIX ===== */
+        td.action-cell {
+            text-align: left; /* IMPORTANT: match other columns */
+        }
+
+        /* remove form default behavior */
+        .action-cell form {
+            margin: 0;
+            padding: 0;
+            display: inline; /* prevents block stretching */
+        }
+
+        /* button style */
         .delete-btn {
             background: #ff5252;
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 8px 18px;
             border-radius: 20px;
+            cursor: pointer;
+            display: inline-block;
+            transition: 0.2s ease;
         }
 
-        table {
-            width: 100%;
+        /* hover effect */
+        .delete-btn:hover {
+            background: #e53935;
+            transform: scale(1.05);
         }
     </style>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 
+    {{-- sidebar --}}
+    @include('admin.sidebar')
+
+    {{-- Main page content --}}
     @yield('content')
 
 </body>

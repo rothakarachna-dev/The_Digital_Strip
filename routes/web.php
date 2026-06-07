@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PhotoBoothController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\ContactMessageController;
 
 
 Route::get('/', function () {
@@ -57,4 +58,16 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('/admin/users/{user}', [AdminController::class, 'destroy'])
         ->name('admin.users.destroy');
+});
+
+
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    // list page
+    Route::get('/contact', [ContactMessageController::class, 'index'])
+        ->name('contact.index');
+
+    // delete message
+    Route::delete('/contact/{id}', [ContactMessageController::class, 'destroy'])
+        ->name('contact.delete');
 });

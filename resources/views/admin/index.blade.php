@@ -10,6 +10,7 @@
 
     <div class="content-wrapper">
 
+        {{-- HEADER --}}
         <div class="page-header">
             <div>
                 <span class="breadcrumb">Admin / Dashboard</span>
@@ -17,13 +18,11 @@
             </div>
 
             <div class="admin-mini-profile">
-
                 <span>{{ Auth::user()->email }}</span>
 
                 @if(Auth::user()->profile_image)
                     <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="Admin">
                 @endif
-
             </div>
         </div>
 
@@ -42,7 +41,7 @@
 
         </div>
 
-        {{-- USER REGISTRATION GRAPH --}}
+        {{-- GRAPH --}}
         <div class="content-card">
             <h3>User Registration Graph</h3>
             <canvas id="userChart"></canvas>
@@ -76,7 +75,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>User Details</th>
+                        <th>Email</th>
                         <th>Registration Date</th>
                         <th>Action</th>
                     </tr>
@@ -87,6 +86,7 @@
                 @forelse($users as $user)
 
                     <tr>
+
                         <td>#{{ $user->id }}</td>
 
                         <td>
@@ -98,18 +98,23 @@
                             {{ $user->created_at->format('M d, Y') }}
                         </td>
 
-                        <td>
-                            <form action="{{ route('admin.users.destroy', $user->id) }}"
-                                  method="POST"
-                                  onsubmit="return confirm('Delete this user account?')">
+                        {{-- ACTION COLUMN --}}
+                        <td class="action-cell">
+                            <form class="action-form"
+                                action="{{ route('admin.users.destroy', $user->id) }}"
+                                method="POST"
+                                onsubmit="return confirm('Delete this user account?')">
+
                                 @csrf
                                 @method('DELETE')
 
                                 <button type="submit" class="delete-btn">
                                     Remove
                                 </button>
+
                             </form>
                         </td>
+
                     </tr>
 
                 @empty
@@ -128,7 +133,7 @@
 
 </div>
 
-{{-- 📈 CHART SCRIPT --}}
+{{-- CHART --}}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
@@ -148,7 +153,7 @@
             }]
         },
         options: {
-            responsive: true, 
+            responsive: true,
             scales: {
                 y: {
                     beginAtZero: true,
