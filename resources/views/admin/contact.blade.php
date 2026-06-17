@@ -15,6 +15,7 @@
         }
 
         body {
+            cursor: url("{{ asset('assets/Images/cursor.png') }}") 0 0, auto;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-pink);
             margin: 0;
@@ -180,7 +181,7 @@
                             </td>
 
                             <td style="text-align:center;">
-                                <form action="{{ route('admin.contact.destroy', $msg->id) }}"
+                                <form action="{{ route('admin.contact.delete', $msg->id) }}"
                                       method="POST"
                                       onsubmit="return confirm('Are you sure you want to delete this message?')">
 

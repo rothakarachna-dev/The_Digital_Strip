@@ -335,7 +335,7 @@
         const posesLeftEl      = document.getElementById('poses-left');
         const filterDots       = document.querySelectorAll('.filter-dot');
         const nextBtn          = document.getElementById('next-btn');
-        const debugBar         = document.getElementById('debug-bar');
+ 
 
         const capturedPhotos = [];
 
@@ -362,8 +362,7 @@
         let currentColorFilter = 'normal';
         let isMirrored         = false;
 
-        // Show debug info so you can confirm what was read
-        debugBar.textContent = `[debug] raw="${rawLayout}" → layout="${selectedLayout}", totalPoses=${totalPoses}`;
+
 
         function updatePosesLeftText() {
             posesLeftEl.textContent = `Poses: ${capturedPhotos.length} / ${totalPoses}`;

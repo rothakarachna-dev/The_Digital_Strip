@@ -178,25 +178,16 @@
         <i id="togglePassword" class="bi bi-eye-slash toggle-password-icon"></i>
       </div>
 
-      <button type="button" class="google-btn" onclick="googleLogin()">
+      <a href="{{ route('google.login') }}" class="google-btn">
         <img src="{{ asset('assets/Images/google.webp') }}" width="18">
         Log in with Google
-      </button>
+      </a>
 
       <button type="submit" class="login-btn">Log In</button>
     </form>
   </div>
 
 <script>
-function googleLogin() {
-  const clientID = "252317351063-4d879ff1ikq7rcjs6eevgme99au50m47.apps.googleusercontent.com";
-  const redirectUri = encodeURIComponent("http://127.0.0.1:8000/auth/google-callback");
-  const scope = encodeURIComponent("email profile openid");
-
-  window.location.href =
-    `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientID}&redirect_uri=${redirectUri}&scope=${scope}&response_type=code&prompt=select_account`;
-}
-
 document.addEventListener('DOMContentLoaded', function () {
   const input = document.getElementById('password');
   const icon  = document.getElementById('togglePassword');

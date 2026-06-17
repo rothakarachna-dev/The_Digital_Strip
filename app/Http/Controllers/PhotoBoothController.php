@@ -9,23 +9,23 @@ class PhotoBoothController extends Controller
 {
     public function showLayout()
     {
-        return view('contact.layout');
+        return view('user.layout');
     }
  
     public function showCamera()
     {
-        return view('contact.camera');
+        return view('user.camera');
     }
 
         public function showSticker()
     {
         $stickers = Sticker::latest()->get();
-        return view('contact.sticker', compact('stickers'));
+        return view('user.sticker', compact('stickers'));
     }
     
         public function showPhoto()
     {
-        return view('contact.photo');
+        return view('user.photo');
     }
     
 

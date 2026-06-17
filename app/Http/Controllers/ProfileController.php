@@ -9,7 +9,7 @@ use App\Models\User;
 class ProfileController extends Controller
 {
    public function edit() {
-    return view('contact.profile');
+    return view('user.profile');
 }
 
     public function update(Request $request) {

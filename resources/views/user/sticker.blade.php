@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" href="bootstrap-icons-1.13.1/font/bootstrap-icons.css">
     <meta charset="UTF-8">
     <title>Customize</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap-icons-1.13.1/bootstrap-icons.css') }}">
+    
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
     <style>
@@ -43,73 +45,25 @@
             text-shadow: 2px 2px 4px rgba(248, 117, 170, 0.3);
             text-transform: capitalize;
         }
-
+        
         .preview {
-            width: 250px;
+            width: 350px;
             background: #ffffff;
-            padding: 15px 15px 40px 15px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 20px 20px 40px 20px;
+            border-radius: 0px !important;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
             position: relative;
-            overflow: hidden;
+            height: fit-content;
+            align-self: center;
+            margin-bottom: 0;
         }
-
-        .preview-layout-container {
-            width: 100%;
-        }
-
+         
         .preview-slot {
             background: #333;
             width: 100%;
-            border-radius: 2px;
+            height: 100px;
+            border-radius: 0px !important;
             overflow: hidden;
-        }
-
-        .preview-layout.layout-A {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .layout-A .preview-slot { height: 140px; }
-
-        .preview-layout.layout-B {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .layout-B .preview-slot { height: 210px; }
-
-        .preview-layout.layout-C {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px;
-        }
-        .layout-C .preview-slot { height: 100px; }
-
-        .preview-layout.layout-D {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
-        .layout-D .preview-slot {
-            aspect-ratio: 1 / 1;
-            height: auto;
-        }
-
-        .preview-footer {
-            position: absolute;
-            bottom: 12px;
-            font-size: 13px;
-            font-weight: bold;
-            color: #F875AA;
-            text-align: center;
-            width: 100%;
-            letter-spacing: 0.5px;
-            margin-top: 15px;
         }
 
         .preview-slot img {
@@ -118,8 +72,89 @@
             object-fit: cover;
         }
 
-        .filter-bw img   { filter: grayscale(100%); }
-        .filter-sepia img { filter: sepia(100%); }
+        /* =========================
+        LAYOUT A
+        ========================= */
+        .preview-layout.layout-A {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .layout-A .preview-slot {
+            aspect-ratio: unset;
+            height: 200px;
+        }
+
+        /* =========================
+        LAYOUT B
+        ========================= */
+        .preview-layout.layout-B {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .layout-B .preview-slot {
+            aspect-ratio: unset;
+            height: 250px;
+        }
+
+        /* =========================
+        LAYOUT C
+        ========================= */
+        .preview-layout.layout-C {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .layout-C .preview-slot {
+            aspect-ratio: 1 / 1;
+            height: auto;
+            width: 100%;
+        }
+
+        /* =========================
+        LAYOUT D 
+        ========================= */
+        .preview-layout.layout-D {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .layout-D .preview-slot {
+            aspect-ratio: unset;
+            width: 100%;
+            height: 150px;
+        }
+
+        .preview-footer {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            color: #F875AA;
+            letter-spacing: 0.5px;
+        }
+
+        .preview-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-slot.filter-bw img    { filter: grayscale(100%); }
+        .preview-slot.filter-sepia img { filter: sepia(100%); }
 
         .preview-slot.square {
             border-radius: 12px;
@@ -127,7 +162,7 @@
         }
 
         .preview-slot.circle {
-            border-radius: 50%;
+            border-radius: 50% !important;
             overflow: hidden;
         }
 
@@ -287,12 +322,14 @@
         .actions {
             display: flex;
             justify-content: center;
+            margin-top: -70px;
             gap: 18px;
-            padding: 40px 0 60px;
+            padding: 0px 0 60px;
         }
 
         .action-btn {
-            padding: 14px 36px;
+            padding: 14px 20px;
+            white-space: nowrap;
             border-radius: 30px;
             border: 2px solid #ff8fa6;
             background: #ffc1d1;
@@ -325,7 +362,7 @@
         <!-- Preview strip -->
         <div class="preview" id="preview-strip">
             <div class="preview-layout-container"></div>
-            <div class="preview-footer">♥ The Digital Strip ♥</div>
+            <div class="preview-footer"> The Digital Strip </div>
             <div class="preview-meta" id="preview-meta"></div>
         </div>
 
@@ -350,14 +387,28 @@
                 </div>
 
                 <div class="section">
-                    <h3>Photo Shape</h3>
-                    <div class="grid" id="shape-grid">
-                        <div class="item shape-btn selected" data-shape="square">◻️</div>
-                        <div class="item shape-btn" data-shape="circle">⭕</div>
-                        <div class="item shape-btn" data-shape="heart">❤️</div>
-                        <div class="item shape-btn" data-shape="star">⭐</div>
+                <h3>Photo Shape</h3>
+
+                <div class="grid" id="shape-grid">
+
+                    <div class="item shape-btn selected" data-shape="square">
+                        <i class="bi bi-square"></i>
                     </div>
+
+                    <div class="item shape-btn" data-shape="circle">
+                        <i class="bi bi-circle"></i>
+                    </div>
+
+                    <div class="item shape-btn" data-shape="heart">
+                        <i class="bi bi-heart"></i>
+                    </div>
+
+                    <div class="item shape-btn" data-shape="star">
+                        <i class="bi bi-star"></i>
+                    </div>
+
                 </div>
+            </div>
 
                 <div class="section">
                     <h3>Stickers</h3>
@@ -407,7 +458,9 @@
         layoutContainer.innerHTML = '';
         const layoutWrapper = document.createElement('div');
         const currentLayout = (sessionStorage.getItem('selectedLayout') || 'A').toUpperCase();
-        layoutWrapper.className = `preview-layout layout-${currentLayout} filter-${storedFilter}`;
+
+        // REMOVE 'filter-${storedFilter}' FROM HERE:
+        layoutWrapper.className = `preview-layout layout-${currentLayout}`; 
         layoutContainer.appendChild(layoutWrapper);
 
         const layoutMap = { 'A': 3, 'B': 2, 'C': 6, 'D': 4 };
@@ -415,7 +468,9 @@
 
         for (let i = 0; i < slotsCount; i++) {
             const slot = document.createElement('div');
-            slot.className = 'preview-slot square';
+            // ADD THE FILTER CLASS TO THE SLOT INSTEAD:
+            slot.className = `preview-slot square ${storedFilter !== 'normal' ? storedFilter : ''}`;
+            
             if (photos[i]) {
                 const img = document.createElement('img');
                 img.src = photos[i];
@@ -478,49 +533,84 @@
         });
 
         // ====== STICKERS ======
-        const stickerButtons = document.querySelectorAll('.sticker-btn');
+       const stickerButtons = document.querySelectorAll('.sticker-btn');
         const strip = document.getElementById('preview-strip');
 
-        let dragTarget = null, resizeTarget = null, rotateTarget = null, activeSticker = null;
-        let dragOffsetX = 0, dragOffsetY = 0, startWidth = 0, startHeight = 0;
-        let startMouseX = 0, startMouseY = 0, rotateStartX = 0, rotateStartY = 0;
+        let dragTarget = null,
+            resizeTarget = null,
+            rotateTarget = null,
+            activeSticker = null;
 
+        let dragOffsetX = 0,
+            dragOffsetY = 0,
+            startWidth = 0,
+            startHeight = 0;
+
+        let startMouseX = 0,
+            startMouseY = 0,
+            rotateStartX = 0,
+            rotateStartY = 0;
+
+        // Add sticker to strip
         function addStickerImage(src) {
             const sticker = document.createElement('div');
             sticker.className = 'preview-sticker';
             sticker.dataset.angle = '0';
-            sticker.innerHTML = `<img src="${src}"><div class="sticker-resize"></div><div class="sticker-rotate"></div>`;
-            sticker.style.width  = '60px';
-            sticker.style.height = '60px';
-            sticker.style.left   = '50px';
-            sticker.style.top    = '50px';
 
+            sticker.innerHTML = `
+                <img src="${src}">
+                <div class="sticker-resize"></div>
+                <div class="sticker-rotate"></div>
+            `;
+
+            sticker.style.width = '60px';
+            sticker.style.height = '60px';
+            sticker.style.left = '50px';
+            sticker.style.top = '50px';
+
+            // Drag start
             sticker.addEventListener('mousedown', (e) => {
-                if (e.target.classList.contains('sticker-resize') || e.target.classList.contains('sticker-rotate')) return;
+                if (
+                    e.target.classList.contains('sticker-resize') ||
+                    e.target.classList.contains('sticker-rotate')
+                ) return;
+
                 e.preventDefault();
+
                 dragTarget = sticker;
+
                 const sRect = sticker.getBoundingClientRect();
                 dragOffsetX = e.clientX - sRect.left;
                 dragOffsetY = e.clientY - sRect.top;
+
                 setActiveSticker(sticker);
             });
 
+            // Resize start
             sticker.querySelector('.sticker-resize').addEventListener('mousedown', (e) => {
-                e.stopPropagation(); e.preventDefault();
+                e.stopPropagation();
+                e.preventDefault();
+
                 resizeTarget = sticker;
-                startWidth  = sticker.offsetWidth;
+                startWidth = sticker.offsetWidth;
                 startHeight = sticker.offsetHeight;
                 startMouseX = e.clientX;
                 startMouseY = e.clientY;
+
                 setActiveSticker(sticker);
             });
 
+            // Rotate start
             sticker.querySelector('.sticker-rotate').addEventListener('mousedown', (e) => {
-                e.stopPropagation(); e.preventDefault();
+                e.stopPropagation();
+                e.preventDefault();
+
                 rotateTarget = sticker;
+
                 const sRect = sticker.getBoundingClientRect();
                 rotateStartX = sRect.left + sRect.width / 2;
-                rotateStartY = sRect.top  + sRect.height / 2;
+                rotateStartY = sRect.top + sRect.height / 2;
+
                 setActiveSticker(sticker);
             });
 
@@ -528,20 +618,32 @@
             setActiveSticker(sticker);
         }
 
+        // Set active sticker
         function setActiveSticker(sticker) {
-            document.querySelectorAll('.preview-sticker').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.preview-sticker')
+                .forEach(s => s.classList.remove('active'));
+
             activeSticker = sticker;
-            if (sticker) sticker.classList.add('active');
+
+            if (sticker) {
+                sticker.classList.add('active');
+                setStickerHandlesVisible(true);
+            } else {
+                setStickerHandlesVisible(false);
+            }
         }
 
+        // Show / hide resize + rotate handles
         function setStickerHandlesVisible(visible) {
-            document.querySelectorAll('.sticker-resize, .sticker-rotate').forEach(h => {
-                h.style.display = visible ? '' : 'none';
-            });
-            if (!visible && activeSticker) activeSticker.classList.remove('active');
-            if (visible  && activeSticker) activeSticker.classList.add('active');
+            document.querySelectorAll('.sticker-resize, .sticker-rotate')
+                .forEach(h => h.style.display = visible ? '' : 'none');
+
+            if (!visible && activeSticker) {
+                activeSticker.classList.remove('active');
+            }
         }
 
+        // Add sticker buttons
         stickerButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 const src = btn.getAttribute('data-sticker-img');
@@ -549,27 +651,56 @@
             });
         });
 
+        // Drag / resize / rotate handler
         document.addEventListener('mousemove', (e) => {
             const stripRect = strip.getBoundingClientRect();
+
+            // Drag (clamped inside strip)
             if (dragTarget) {
-                dragTarget.style.left = (e.clientX - stripRect.left - dragOffsetX) + 'px';
-                dragTarget.style.top  = (e.clientY - stripRect.top  - dragOffsetY) + 'px';
+                let newX = e.clientX - stripRect.left - dragOffsetX;
+                let newY = e.clientY - stripRect.top - dragOffsetY;
+
+                newX = Math.max(0, Math.min(newX, stripRect.width - dragTarget.offsetWidth));
+                newY = Math.max(0, Math.min(newY, stripRect.height - dragTarget.offsetHeight));
+
+                dragTarget.style.left = newX + 'px';
+                dragTarget.style.top = newY + 'px';
             }
+
+            // Resize
             if (resizeTarget) {
                 let newSize = Math.max(20, startWidth + (e.clientX - startMouseX));
-                resizeTarget.style.width  = newSize + 'px';
+                resizeTarget.style.width = newSize + 'px';
                 resizeTarget.style.height = newSize + 'px';
             }
+
+            // Rotate
             if (rotateTarget) {
                 const dx = e.clientX - rotateStartX;
                 const dy = e.clientY - rotateStartY;
-                const finalAngle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
-                rotateTarget.style.transform = `rotate(${finalAngle}deg)`;
+
+                const angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+                rotateTarget.style.transform = `rotate(${angle}deg)`;
             }
         });
 
-        document.addEventListener('mouseup', () => { dragTarget = null; resizeTarget = null; rotateTarget = null; });
+        // Reset actions
+        document.addEventListener('mouseup', () => {
+            dragTarget = null;
+            resizeTarget = null;
+            rotateTarget = null;
+        });
 
+        // Deselect on outside click
+        document.addEventListener('mousedown', (e) => {
+            const isSticker = e.target.closest('.preview-sticker');
+
+            if (!isSticker) {
+                setActiveSticker(null);
+            }
+        });
+
+        // Delete active sticker
         document.addEventListener('keydown', (e) => {
             if (activeSticker && (e.key === 'Backspace' || e.key === 'Delete')) {
                 e.preventDefault();
@@ -579,25 +710,66 @@
         });
 
         // === Export / Navigation ===
-        const exportAction = (isDownload) => {
-            setStickerHandlesVisible(false);
-            html2canvas(previewStrip, { scale: 2 }).then(canvas => {
-                const dataUrl = canvas.toDataURL('image/png');
-                if (isDownload) {
-                    const link = document.createElement('a');
-                    link.href     = dataUrl;
-                    link.download = 'photostrip.png';
-                    link.click();
-                } else {
-                    let savedStrips = JSON.parse(sessionStorage.getItem('savedStrips') || "[]");
-                    savedStrips.push(dataUrl);
-                    sessionStorage.setItem('savedStrips', JSON.stringify(savedStrips));
-                    sessionStorage.setItem('savedStrip', dataUrl);
-                    window.location.assign("{{ route('photobooth.photo') }}");
+        const exportAction = async (isDownload) => {
+        setStickerHandlesVisible(false);
+        document.querySelectorAll('.preview-sticker').forEach(s => s.classList.remove('active'));
+
+        await new Promise(r => setTimeout(r, 200));
+
+        const images = previewStrip.querySelectorAll("img");
+        await Promise.all(Array.from(images).map(img => {
+            if (img.complete) return Promise.resolve();
+            return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
+        }));
+
+        const slots = previewStrip.querySelectorAll(".preview-slot");
+        slots.forEach(slot => {
+            const rect = slot.getBoundingClientRect();
+            slot.style.width = `${rect.width}px`;
+            slot.style.height = `${rect.height}px`;
+        });
+
+        const originalHeight = previewStrip.style.height;
+        previewStrip.style.height = `${previewStrip.scrollHeight}px`;
+
+        try {
+            const canvas = await html2canvas(previewStrip, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                logging: false,
+                onclone: (clonedDoc) => {
+                    const clonedStrip = clonedDoc.getElementById('preview-strip');
+                    if (clonedStrip) clonedStrip.style.filter = "none";
                 }
-                setStickerHandlesVisible(true);
             });
-        };
+
+            previewStrip.style.height = originalHeight;
+            slots.forEach(slot => {
+                slot.style.width = "";
+                slot.style.height = "";
+            });
+
+            const dataUrl = canvas.toDataURL('image/png');
+
+            if (isDownload) {
+                const link = document.createElement('a');
+                link.href = dataUrl;
+                link.download = 'photostrip.png';
+                link.click();
+            } else {
+                let savedStrips = JSON.parse(sessionStorage.getItem('savedStrips') || "[]");
+                savedStrips.push(dataUrl);
+                sessionStorage.setItem('savedStrips', JSON.stringify(savedStrips));
+                sessionStorage.setItem('savedStrip', dataUrl);
+                window.location.assign("{{ route('photobooth.photo') }}");
+            }
+        } catch (error) {
+            console.error("Export failed:", error);
+        } finally {
+            setStickerHandlesVisible(true);
+        }
+    };
 
         document.getElementById('save-strip').addEventListener('click',     () => exportAction(false));
         document.getElementById('download-strip').addEventListener('click', () => exportAction(true));

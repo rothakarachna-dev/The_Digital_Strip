@@ -5,17 +5,17 @@
     <style>
         *, *::before, *::after { cursor: inherit; }
 
-       body {
+        body {
             cursor: url("{{ asset('assets/Images/cursor.png') }}") 0 0, auto;
             font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
             padding: 0;
-           color: #333;
+            color: #333;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-           background: linear-gradient(135deg, #ffffff 0%, #fdf2f5 50%, #f0e6fa 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #fdf2f5 50%, #f0e6fa 100%);
             position: relative;
             overflow-x: hidden;
         }
@@ -67,7 +67,9 @@
             flex-direction: column;
         }
 
-        .form-group { margin-bottom: 20px; }
+        .form-group {
+            margin-bottom: 20px;
+        }
 
         .form-group label {
             display: block;
@@ -85,10 +87,15 @@
             outline: none;
             resize: none;
             min-height: 220px;
-}
+        }
 
         textarea:focus {
             border-color: #e91e63;
+        }
+
+        textarea:disabled {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
         }
 
         .submit-btn {
@@ -106,6 +113,33 @@
             background-color: #e91e63;
             color: #fff;
             transform: translateY(-2px);
+        }
+
+        .disabled-btn {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .disabled-btn:hover {
+            background-color: #fff;
+            color: #e91e63;
+            transform: none;
+        }
+
+        .login-warning {
+            margin-top: 12px;
+            color: #e91e63;
+            font-size: 14px;
+        }
+
+        .login-warning a {
+            color: #e91e63;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .login-warning a:hover {
+            text-decoration: underline;
         }
 
         .alert {
@@ -135,41 +169,6 @@
     @include('nav.nav')
 @endauth
 
-@php
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-
-$success_msg = "";
-$error_msg = "";
-
-/* HANDLE FORM */
-if (request()->isMethod('post')) {
-
-    if (!Auth::check()) {
-        $error_msg = "You must be logged in to send a message.";
-    } else {
-
-        $message = trim(request('message'));
-
-        if ($message) {
-            try {
-                DB::table('contact_message')->insert([
-                    'name' => Auth::user()->name,
-                    'email' => Auth::user()->email,
-                    'message' => $message,
-                    'created_at' => now()
-                ]);
-
-                $success_msg = "Thank you! Your message has been sent.";
-            } catch (Exception $e) {
-                $error_msg = "Something went wrong.";
-            }
-        } else {
-            $error_msg = "Please write a message.";
-        }
-    }
-}
-@endphp
 
 <div class="container">
 
@@ -177,32 +176,76 @@ if (request()->isMethod('post')) {
 
         <div class="info-section">
             <h1>Contact Us</h1>
+
             <p>
                 We love hearing from you! Send us feedback, questions, or suggestions anytime.
             </p>
 
-            @if($success_msg)
-                <div class="alert alert-success">{{ $success_msg }}</div>
-            @endif
+            @guest
+                <div class="alert alert-error">
+                    You need to sign up or login first before sending a message.
+                </div>
+            @endguest
 
-            @if($error_msg)
-                <div class="alert alert-error">{{ $error_msg }}</div>
-            @endif
+            @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-error">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if($errors->any())
+            <div class="alert alert-error">
+                {{ $errors->first() }}
+            </div>
+        @endif
         </div>
 
-        {{-- ONLY MESSAGE FIELD NOW --}}
-        <form class="contact-form" method="POST">
+        <form class="contact-form" method="POST" action="{{ route('contact.store') }}">
             @csrf
 
             <div class="form-group">
                 <label>Message</label>
-                <textarea name="message" placeholder="Type your message..." required></textarea>
+
+                <textarea
+                    name="message"
+                    placeholder="Type your message..."
+                    @guest disabled @endguest
+                    required
+                ></textarea>
             </div>
 
-            <button type="submit" class="submit-btn">Submit</button>
+            @auth
+                <button type="submit" class="submit-btn">
+                    Submit
+                </button>
+            @else
+                <button
+                    type="button"
+                    class="submit-btn disabled-btn"
+                    onclick="alert('You need to sign up or login first.')"
+                >
+                    Send
+                </button>
+
+                <p class="login-warning">
+                    Please
+                    <a href="{{ route('login') }}">Login</a>
+                    or
+                    <a href="{{ route('signup') }}">Sign Up</a>
+                    to send a message.
+                </p>
+            @endauth
+
         </form>
 
     </div>
+
 </div>
 
 @include('nav.footer')

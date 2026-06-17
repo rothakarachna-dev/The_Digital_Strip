@@ -55,16 +55,18 @@
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 30px;
             padding: 10px;
+            align-items: start; /* align all cards from the top */
         }
 
         .layout-option {
-            background: #fff;
             padding: 25px 15px;
             border-radius: 20px;
             border: 2px solid transparent;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
-            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .layout-option:hover {
@@ -87,7 +89,7 @@
         }
 
         .strip-visual::after {
-            content: "♥ The Digital Strip ♥";
+            content: "The Digital Strip";
             position: absolute;
             bottom: 8px;
             left: 0;
@@ -121,25 +123,29 @@
         .layout-d .strip-visual {
             background: #ffffff;
             width: 200px;
-            height: 200px;
-            margin: 0 auto 20px;
+            /* Remove fixed height: let the content determine the height */
+            height: auto; 
+            
+            /* Use margin for positioning, padding for internal spacing */
+            margin: 20px auto; 
+            
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
             gap: 8px;
-            padding: 15px 10px 40px 10px;
+            
+            /* Adjust padding so content fits nicely */
+            padding: 10px 10px 30px 10px; 
+            
             border-radius: 2px;
             box-shadow: 0 8px 15px rgba(0,0,0,0.1);
             position: relative;
-            align-content: center;
         }
 
         .layout-d .strip-frame {
             background-color: #333;
             width: 100%;
             aspect-ratio: 1 / 1;
-            height: auto;
-            margin: 0;
             border-radius: 1px;
         }
 
@@ -147,12 +153,15 @@
             font-weight: 700;
             font-size: 1.1rem;
             color: #333;
+            margin-top: auto;
             margin-bottom: 4px;
+            text-align: center;
         }
 
         .layout-details {
             font-size: 0.85rem;
-            color: #aaa;
+            color: #555;
+            text-align: center;
         }
     </style>
 </head>

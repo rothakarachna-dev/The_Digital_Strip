@@ -17,7 +17,8 @@
         </a>
 
         {{-- Stickers --}}
-        <a href="#" class="nav-item">
+        <a href="{{ route('admin.stickers.index') }}"
+        class="nav-item {{ request()->routeIs('admin.stickers.*') ? 'active' : '' }}">
             Add New Stickers
         </a>
 
@@ -56,8 +57,8 @@
     --sidebar-width: 260px;
 }
 
-/* SIDEBAR FIXED (NO HOVER, ALWAYS OPEN) */
 .sidebar {
+    
     width: var(--sidebar-width);
     height: 100vh;
     position: fixed;
@@ -121,7 +122,7 @@
     text-decoration: none;
 }
 
-/* PUSH CONTENT RIGHT */
+
 body {
     margin-left: var(--sidebar-width);
     font-family: Arial, sans-serif;

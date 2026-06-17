@@ -10,24 +10,29 @@ class ContactController extends Controller
 {
     public function index()
     {
-        return view('contact.contact');
+        return view('user.contact');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'message' => 'required'
+            'message' => 'required|string'
         ]);
 
         $user = Auth::user();
 
-        DB::table('contact_message')->insert([
+        if (!$user) {
+            return back()->with('error', 'You must be logged in.');
+        }
+
+        DB::table('contact_messages')->insert([
             'name' => $user->name,
             'email' => $user->email,
             'message' => $request->message,
-            'created_at' => now()
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
-        return back()->with('success', 'Message sent successfully!');
+        return back()->with('success', 'Message sent!');
     }
 }

@@ -37,31 +37,8 @@
             gap: 60px;
         }
 
-        /* Sidebar Content */
-        .left-side, .right-side {
-            width: 20%;
-            text-align: center;
-            padding: 10px;
-        }
 
-        .left-side h2, .right-side h2 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #193e5c;
-            margin-bottom: 10px;
-        }
-
-        .side-img {
-            width: 100%;
-            margin-top: 40px;
-        }
-
-        .small {
-            width: 70%;
-            margin-top: 10px;
-        }
-
-        /* Photobooth Machine Center */
+        /* Photobooth Machine */
         .center {
             width: 30%;
             position: relative;
@@ -124,11 +101,7 @@
 
         <div class="content-container">
 
-            <div class="left-side">
-                <h2>Strike a pose</h2>
-                <img src="{{ asset('assets/Images/friend posing.webp') }}" class="side-img">
-                <img src="{{ asset('assets/Images/posing 2.webp') }}" class="side-img small">
-            </div>
+          
 
             <div class="center">
                 <div class="photobooth-container">
@@ -144,12 +117,7 @@
                 </button>
             </div>
 
-            <div class="right-side">
-                <h2>Get your<br>photos<br>instantly!</h2>
-                <img src="{{ asset('assets/Images/posing.webp') }}" class="side-img">
-            </div>
-
-        </div>
+            
     </section>
 
     {{-- Footer location based on your structure in nav/ --}}
