@@ -96,27 +96,36 @@
       color: var(--deep-pink);
     }
     .google-btn {
-      width: 100%;
-      margin-top: 30px;
-      margin-bottom: 15px;
-      padding: 10px;
-      border-radius: 50px;
-      border: 1px solid #dadce0;
-      background: white;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    padding: 14px;
+    border-radius: 50px;
+    border: 1px solid #dadce0;
+    background: white;
+    color: #3c4043;
+    font-weight: bold;
+    text-decoration: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
 
-    .google-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-      border-color: #c6c6c6;
-    }
+  .google-btn:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    border-color: #c6c6c6;
+  }
 
-    .google-btn:active {
-      transform: translateY(0px) scale(0.98);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-    }
+  .google-btn:active {
+    transform: translateY(0px) scale(0.98);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  }
+
 
     .login-btn {
       width: 100%;
