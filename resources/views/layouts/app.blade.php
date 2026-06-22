@@ -168,6 +168,36 @@
             background: #e53935;
             transform: scale(1.05);
         }
+
+        .btn-clear {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    background-color: #f9fafb;
+    color: #374151;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+    .btn-clear:hover {
+        background-color: #f3f4f6;
+        border-color: #9ca3af;
+    }
+
+    .btn-clear:focus-visible {
+        outline: 2px solid #6366f1;
+        outline-offset: 2px;
+    }
+
+    .btn-clear span {
+        font-size: 1.1rem;
+        line-height: 1;
+    }
+
     </style>
 </head>
 

@@ -20,7 +20,7 @@ class AdminController extends Controller
         $users = User::query()
             ->when($search, function ($query) use ($search) {
                 $query->where('email', 'like', "%{$search}%")
-                      ->orWhere('username', 'like', "%{$search}%");
+                      ->orWhere('name', 'like', "%{$search}%");
             })
             ->latest()
             ->get();
@@ -56,12 +56,12 @@ class AdminController extends Controller
     {
         $request->validate([
             'email' => 'required|email|unique:users,email',
-            'username' => 'required|string|max:255|unique:users,username',
+            'name' => 'required|string|max:255',
             'password' => 'required|min:6',
         ]);
 
         User::create([
-            'username' => $request->username,
+            'name'     => $request->name,
             'email'    => $request->email,
             'password' => Hash::make($request->password),
         ]);

@@ -54,14 +54,16 @@
             <form method="GET" action="{{ route('admin.index') }}" class="form-row">
 
                 <input type="text"
-                       name="search"
-                       placeholder="Search by email or username..."
-                       value="{{ request('search') }}">
+                    name="search"
+                    placeholder="Search by email or name..."
+                    value="{{ request('search') }}">
 
                 <button type="submit" class="btn-main">Search</button>
 
                 @if($search)
-                    <a href="{{ route('admin.index') }}">Clear</a>
+                    <a href="{{ route('admin.index') }}" class="btn-clear" title="Clear search">
+                        <span aria-hidden="true">&times;</span> Clear
+                    </a>
                 @endif
 
             </form>
